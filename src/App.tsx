@@ -11,7 +11,10 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import './App.scss';
 
 const App = () => {
-    const [isLogin, setIsLogin] = useState<boolean>(true);
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const handleLogin = (isLogin: boolean):void => {
+        setIsLogin(isLogin);
+    }
   return (
     <Router>
         <div className="l-container">
@@ -21,8 +24,13 @@ const App = () => {
                         <HomePage/>
                     </PrivateRoute>
                 }/>
-                <Route path={'/login'} element={<LoginPage/>}/>
-                <Route path={'/createUser'} element={<RegistrationPage/>}/>
+                <Route path={'/*'} element={
+                    <PrivateRoute isLogin={isLogin}>
+                        <HomePage/>
+                    </PrivateRoute>
+                }/>
+                <Route path={'/login'} element={<LoginPage isLogin={isLogin} changeLogin={handleLogin}/>}/>
+                <Route path={'/registration'} element={<RegistrationPage/>}/>
             </Routes>
         </div>
     </Router>
