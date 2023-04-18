@@ -4,11 +4,11 @@ export interface IProps {
 }
 
 export interface IValidError {
-    name: string,
+    email: string,
     password: string,
 }
 
 export interface ILogin {
-    name: string;
+    email: string;
     password: string;
 }

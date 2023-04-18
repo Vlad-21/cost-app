@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {ILogin, IProps, IValidError} from "./LoginPage.interface";
-import {setUser} from "../../services/userService";
+import {loginUser, setUser} from "../../services/userService";
 import Icon from "../../components/Icon/Icon";
 import {blackColor, errorColor} from './LoginPageContants';
 import './LoginPage.scss';
 
 const LoginPage: React.FC<IProps> = ({isLogin, changeLogin}) => {
     const [formData, setFormData] = useState<ILogin>({
-        name: '',
+        email: '',
         password: '',
     });
     const [errors, setErrors] = useState<IValidError>({
-        name: '',
+        email: '',
         password: '',
     });
 
@@ -34,11 +34,11 @@ const LoginPage: React.FC<IProps> = ({isLogin, changeLogin}) => {
 
     const validationForm = (form: ILogin): IValidError => {
         const errors: IValidError = {
-            name: '',
+            email: '',
             password: '',
         }
-        if (!form.name) {
-            errors.name = 'Name is required';
+        if (!form.email) {
+            errors.email = 'Email is required';
         }
         if (!form.password) {
             errors.password = 'Password is required';
@@ -48,11 +48,11 @@ const LoginPage: React.FC<IProps> = ({isLogin, changeLogin}) => {
     const handleSubmitClick = (event: React.SyntheticEvent): void => {
         event.preventDefault();
         const error = validationForm(formData);
-        if (error.name || error.password) {
+        if (error.email || error.password) {
             setErrors(error);
         } else {
-            setUser(formData);
-            changeLogin(true);
+            loginUser(formData.email, formData.password);
+            // changeLogin(true);
         };
     }
     return (
@@ -60,23 +60,22 @@ const LoginPage: React.FC<IProps> = ({isLogin, changeLogin}) => {
             <div className="p-login__container">
                 <h1 className="p-login__container--title">Увійти</h1>
                 <form className="p-login__container__form" onSubmit={handleSubmitClick}>
-                    {/*<Icon size='20px' icon='eye-off' />*/}
-                    <label style={{color: errors.name ? errorColor : blackColor}} className="p-login__container__form--label">User Name:</label>
+                    <label style={{color: errors.email ? errorColor : blackColor}} className="p-login__container__form--label">Пошта</label>
                     <div
-                        style={{borderColor: errors.name ? errorColor : blackColor}}
+                        style={{borderColor: errors.email ? errorColor : blackColor}}
                         className="p-login__container__form__wrap">
                         <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
+                            type="email"
+                            name="email"
+                            value={formData.email}
                             onChange={handleOnChange}
                             className="p-login__container__form__wrap--input"
                         />
-                        {errors.name && <Icon size='20px' icon='alert-triangle' color={errorColor} />}
+                        {errors.email && <Icon size='20px' icon='alert-triangle' color={errorColor} />}
                     </div>
                     <label
                         style={{color: errors.password ? errorColor : blackColor}}
-                        className="p-login__container__form--label">Password:</label>
+                        className="p-login__container__form--label">Пароль</label>
                     <div
                         style={{borderColor: errors.password ? errorColor : blackColor}}
                         className="p-login__container__form__wrap">

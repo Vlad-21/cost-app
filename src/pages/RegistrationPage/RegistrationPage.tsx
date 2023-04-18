@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import './RegistrationPage.scss';
 import RegistrationInputComponent from "../../components/RegistrationInputComponent/RegistrationInputComponent";
 import {ILogin, IValidError} from "../LoginPage/LoginPage.interface";
-import {setUser} from "../../services/userService";
+import {createUser, setUser} from "../../services/userService";
 import Icon from "../../components/Icon/Icon";
 import {useNavigate} from "react-router-dom";
 
@@ -50,7 +50,8 @@ const RegistrationPage: React.FC = () => {
         if (error.name || error.password || error.email) {
             setFormError(error);
         } else {
-            setUser(formData);
+            createUser(formData.email, formData.password);
+            // setUser(formData);
         };
 
     }
