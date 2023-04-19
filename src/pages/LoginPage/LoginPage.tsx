@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {ILogin, IProps, IValidError} from "./LoginPage.interface";
-import {loginUser, setUser} from "../../services/userService";
+import {isAuth, loginUser, setUser} from "../../services/userService";
 import Icon from "../../components/Icon/Icon";
-import {blackColor, errorColor} from './LoginPageContants';
+import {blackColor, errorColor} from './LoginPage.contants';
 import './LoginPage.scss';
 
 const LoginPage: React.FC<IProps> = ({isLogin, changeLogin}) => {
@@ -25,6 +25,7 @@ const LoginPage: React.FC<IProps> = ({isLogin, changeLogin}) => {
     useEffect(() => {
         if (isLogin) {
             navigation('/');
+            changeLogin(true);
         }
     })
 
@@ -51,8 +52,12 @@ const LoginPage: React.FC<IProps> = ({isLogin, changeLogin}) => {
         if (error.email || error.password) {
             setErrors(error);
         } else {
-            loginUser(formData.email, formData.password);
-            // changeLogin(true);
+            loginUser(formData.email, formData.password).then((response) => {
+                setUser(response);
+                changeLogin(isAuth());
+            }).catch((e) => {
+                console.log(e);
+            });
         };
     }
     return (
