@@ -1,26 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './RegistrationPage.scss';
 import RegistrationInputComponent from "../../components/RegistrationInputComponent/RegistrationInputComponent";
-import {ILogin, IValidError} from "../LoginPage/LoginPage.interface";
-import {createUser, setUser} from "../../services/userService";
+import {createUser, isAuth, setUser} from "../../services/userService";
 import Icon from "../../components/Icon/Icon";
 import {useNavigate} from "react-router-dom";
+import {IFormError, IFormValue, IProps} from "./RegistrationPage.interface";
+import {blackColor, errorColor} from "./RegistrationPage.constants";
 
-interface IFormValue {
-    name: string;
-    email: string;
-    password: string;
-}
-
-interface IFormError {
-    name: boolean;
-    email: boolean;
-    password: boolean;
-}
-
-const RegistrationPage: React.FC = () => {
-    const errorColor:string = "#ff4c22";
-    const blackColor: string = '#888c9e';
+const RegistrationPage: React.FC<IProps> = ({isLogin,}) => {
     const navigation = useNavigate();
     const [formData, setFormData] = useState<IFormValue>({
         name: '',
@@ -44,14 +31,25 @@ const RegistrationPage: React.FC = () => {
         };
         return errors;
     }
+
+    useEffect(() => {
+        if (isLogin) {
+            navigation('/');
+        }
+    }, []);
     const handleFormSubmitClick = (event: React.SyntheticEvent): void => {
         event.preventDefault();
         const error: IFormError = validationForm(formData);
         if (error.name || error.password || error.email) {
             setFormError(error);
         } else {
-            createUser(formData.email, formData.password);
-            // setUser(formData);
+            createUser(formData.email, formData.password)
+                .then(() => {
+                    navigation('/login');
+
+            }).catch((e) => {
+                console.log(e);
+            });
         };
 
     }

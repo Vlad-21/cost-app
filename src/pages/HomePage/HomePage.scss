@@ -1,7 +1,7 @@
 @import "src/assets/scss/variables";
 .p-home {
   width: 800px;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -13,5 +13,81 @@
     border-bottom: 1px solid black;
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    &--logo-container {
+      width: 30%;
+      margin-left: 10px;
+    }
+    &__user-balanсe {
+      width: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &--balanсe {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      &--add-balance {
+        width: 25px;
+        height: 25px;
+        border: 1px solid $black;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+      }
+    }
+    &__controler {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      &--button {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid $black;
+        border-radius: 50%;
+        margin-right: 20px;
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  &__category {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    &--add-category-button {
+      width: 300px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50px;
+      background: $button-color;
+      margin-top: 20px;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+      &--title {
+        color: $white;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 700;
+        margin-right: 10px;
+      }
+    }
   }
 }

@@ -1,0 +1,77 @@
+@import "src/assets/scss/variables";
+.m-add-balance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.4);
+  &__container {
+    width: 400px;
+    height: 250px;
+    background: $white;
+    border: 2px solid $border-color;
+    border-radius: 20px;
+    &__close-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 10px;
+      &--icon {
+        margin-right: 10px;
+        transform: rotate(45deg);
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+      }
+    }
+    &__category--info {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      &--title {
+        color: $text-color;
+        font-size: 18px;
+        font-weight: 900;
+      }
+      &--input {
+        width: 90%;
+        height: 30px;
+        border: none;
+        font-size: 20px;
+        margin-top: 10px;
+        border-bottom: 1px solid $border-color;
+        background: $background-color;
+        border-radius: 10px;
+        &:focus {
+          outline: none;
+        }
+      }
+      &--button {
+        width: 80%;
+        height: 50px;
+        color: $white;
+        font-weight: 700;
+        font-size: 16px;
+        border-radius: 50px;
+        border: none;
+        text-transform: uppercase;
+        background: $button-color;
+        margin-top: 20px;
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
